@@ -1,0 +1,44 @@
+{
+  "tickRate": 20,
+  "ticksPerGameYear": 9,
+  "victoryCountdownYears": 2000,
+  "speedMultipliers": { "slow": 1, "normal": 1.5, "fast": 2 },
+  "tributeTax": 0.25,
+  "tributeAmount": 100,
+  "startingResources": { "food": 200, "wood": 200, "stone": 150, "gold": 0 },
+  "start": { "building": "town_center", "unit": "villager", "unitCount": 3 },
+  "populationLimits": [50, 75, 100, 150, 200],
+  "ages": [
+    { "id": "stone", "technology": null, "requiredBuildingCount": 0, "qualifyingBuildings": [] },
+    {
+      "id": "tool",
+      "technology": "tool_age",
+      "requiredBuildingCount": 2,
+      "qualifyingBuildings": ["barracks", "granary", "storage_pit", "dock"]
+    },
+    {
+      "id": "bronze",
+      "technology": "bronze_age",
+      "requiredBuildingCount": 2,
+      "qualifyingBuildings": ["archery_range", "stable", "market"]
+    },
+    {
+      "id": "iron",
+      "technology": "iron_age",
+      "requiredBuildingCount": 2,
+      "qualifyingBuildings": ["academy", "government_center", "siege_workshop", "temple"]
+    }
+  ],
+  "conversion": {
+    "attemptInterval": 1.5,
+    "guaranteedFailures": 3,
+    "chance": 0.3,
+    "faithMax": 100,
+    "faithRechargeRate": 2
+  },
+  "elevation": { "highGroundMultiplier": 1.25, "lowGroundMultiplier": 0.75 },
+  "trade": { "minGold": 7, "maxGold": 75, "goodsPerTrip": 20, "maxDistance": 100 },
+  "resourceLevels": { "high": { "food": 1000, "wood": 1000, "stone": 750, "gold": 0 } },
+  "nomadStart": { "unitCount": 1 },
+  "source": "1.0"
+}

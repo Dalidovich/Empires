@@ -1,0 +1,1026 @@
+[
+  {
+    "id": "tool_age",
+    "building": "town_center",
+    "age": "stone",
+    "cost": { "food": 500 },
+    "researchTime": 120,
+    "requires": [],
+    "effects": [{ "type": "advance_age", "age": "tool" }],
+    "source": "1.0"
+  },
+  {
+    "id": "bronze_age",
+    "building": "town_center",
+    "age": "tool",
+    "cost": { "food": 800 },
+    "researchTime": 140,
+    "requires": ["tool_age"],
+    "effects": [{ "type": "advance_age", "age": "bronze" }],
+    "source": "1.0"
+  },
+  {
+    "id": "iron_age",
+    "building": "town_center",
+    "age": "bronze",
+    "cost": { "food": 1000, "gold": 800 },
+    "researchTime": 160,
+    "requires": ["bronze_age"],
+    "effects": [{ "type": "advance_age", "age": "iron" }],
+    "source": "1.0"
+  },
+  {
+    "id": "toolworking",
+    "building": "storage_pit",
+    "age": "tool",
+    "cost": { "food": 100 },
+    "researchTime": 30,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["infantry", "cavalry"] },
+        "stat": "attack",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "metalworking",
+    "building": "storage_pit",
+    "age": "bronze",
+    "cost": { "food": 200, "gold": 120 },
+    "researchTime": 85,
+    "requires": ["toolworking"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["infantry", "cavalry"] },
+        "stat": "attack",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "metallurgy",
+    "building": "storage_pit",
+    "age": "iron",
+    "cost": { "food": 300, "gold": 180 },
+    "researchTime": 100,
+    "requires": ["metalworking"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["infantry", "cavalry"] },
+        "stat": "attack",
+        "op": "add",
+        "value": 3
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "bronze_shield",
+    "building": "storage_pit",
+    "age": "bronze",
+    "cost": { "food": 150, "gold": 180 },
+    "researchTime": 50,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["infantry"] },
+        "stat": "pierceArmor",
+        "op": "add",
+        "value": 1
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "iron_shield",
+    "building": "storage_pit",
+    "age": "iron",
+    "cost": { "food": 200, "gold": 320 },
+    "researchTime": 75,
+    "requires": ["bronze_shield"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["infantry"] },
+        "stat": "pierceArmor",
+        "op": "add",
+        "value": 1
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "leather_armor_archers",
+    "building": "storage_pit",
+    "age": "tool",
+    "cost": { "food": 100 },
+    "researchTime": 30,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["archer"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "scale_armor_archers",
+    "building": "storage_pit",
+    "age": "bronze",
+    "cost": { "food": 125, "gold": 50 },
+    "researchTime": 60,
+    "requires": ["leather_armor_archers"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["archer"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "chain_mail_archers",
+    "building": "storage_pit",
+    "age": "iron",
+    "cost": { "food": 150, "gold": 100 },
+    "researchTime": 75,
+    "requires": ["scale_armor_archers"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["archer"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "leather_armor_cavalry",
+    "building": "storage_pit",
+    "age": "tool",
+    "cost": { "food": 125 },
+    "researchTime": 30,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["cavalry"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "scale_armor_cavalry",
+    "building": "storage_pit",
+    "age": "bronze",
+    "cost": { "food": 150, "gold": 50 },
+    "researchTime": 60,
+    "requires": ["leather_armor_cavalry"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["cavalry"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "chain_mail_cavalry",
+    "building": "storage_pit",
+    "age": "iron",
+    "cost": { "food": 175, "gold": 100 },
+    "researchTime": 75,
+    "requires": ["scale_armor_cavalry"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["cavalry"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "leather_armor_infantry",
+    "building": "storage_pit",
+    "age": "tool",
+    "cost": { "food": 75 },
+    "researchTime": 30,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["infantry"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "scale_armor_infantry",
+    "building": "storage_pit",
+    "age": "bronze",
+    "cost": { "food": 100, "gold": 50 },
+    "researchTime": 60,
+    "requires": ["leather_armor_infantry"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["infantry"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "chain_mail_infantry",
+    "building": "storage_pit",
+    "age": "iron",
+    "cost": { "food": 125, "gold": 100 },
+    "researchTime": 75,
+    "requires": ["scale_armor_infantry"],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["infantry"] },
+        "stat": "armor",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "small_wall",
+    "building": "granary",
+    "age": "tool",
+    "cost": { "food": 50 },
+    "researchTime": 10,
+    "requires": [],
+    "effects": [{ "type": "enable_building", "building": "small_wall" }],
+    "source": "1.0"
+  },
+  {
+    "id": "medium_wall",
+    "building": "granary",
+    "age": "bronze",
+    "cost": { "food": 180, "stone": 50 },
+    "researchTime": 60,
+    "requires": ["small_wall"],
+    "effects": [{ "type": "upgrade_building", "from": "small_wall", "to": "medium_wall" }],
+    "source": "1.0"
+  },
+  {
+    "id": "fortification",
+    "building": "granary",
+    "age": "iron",
+    "cost": { "food": 300, "stone": 175 },
+    "researchTime": 75,
+    "requires": ["medium_wall"],
+    "effects": [{ "type": "upgrade_building", "from": "medium_wall", "to": "fortification" }],
+    "source": "1.0"
+  },
+  {
+    "id": "watch_tower",
+    "building": "granary",
+    "age": "tool",
+    "cost": { "food": 50 },
+    "researchTime": 10,
+    "requires": [],
+    "effects": [{ "type": "enable_building", "building": "watch_tower" }],
+    "source": "1.0"
+  },
+  {
+    "id": "sentry_tower",
+    "building": "granary",
+    "age": "bronze",
+    "cost": { "food": 120, "stone": 50 },
+    "researchTime": 30,
+    "requires": ["watch_tower"],
+    "effects": [{ "type": "upgrade_building", "from": "watch_tower", "to": "sentry_tower" }],
+    "source": "1.0"
+  },
+  {
+    "id": "guard_tower",
+    "building": "granary",
+    "age": "iron",
+    "cost": { "food": 300, "stone": 100 },
+    "researchTime": 75,
+    "requires": ["sentry_tower"],
+    "effects": [{ "type": "upgrade_building", "from": "sentry_tower", "to": "guard_tower" }],
+    "source": "1.0"
+  },
+  {
+    "id": "ballista_tower",
+    "building": "granary",
+    "age": "iron",
+    "cost": { "food": 1800, "stone": 750 },
+    "researchTime": 150,
+    "requires": ["guard_tower", "ballistics"],
+    "effects": [{ "type": "upgrade_building", "from": "guard_tower", "to": "ballista_tower" }],
+    "source": "1.0"
+  },
+  {
+    "id": "battle_axe",
+    "building": "barracks",
+    "age": "tool",
+    "cost": { "food": 100 },
+    "researchTime": 40,
+    "requires": [],
+    "effects": [{ "type": "upgrade_unit", "from": "clubman", "to": "axeman" }],
+    "source": "1.0"
+  },
+  {
+    "id": "short_sword",
+    "building": "barracks",
+    "age": "bronze",
+    "cost": { "food": 120, "gold": 50 },
+    "researchTime": 50,
+    "requires": [],
+    "effects": [{ "type": "enable_unit", "unit": "short_swordsman" }],
+    "source": "1.0"
+  },
+  {
+    "id": "broad_sword",
+    "building": "barracks",
+    "age": "bronze",
+    "cost": { "food": 140, "gold": 50 },
+    "researchTime": 80,
+    "requires": ["short_sword"],
+    "effects": [{ "type": "upgrade_unit", "from": "short_swordsman", "to": "broad_swordsman" }],
+    "source": "1.0"
+  },
+  {
+    "id": "long_sword",
+    "building": "barracks",
+    "age": "iron",
+    "cost": { "food": 160, "gold": 50 },
+    "researchTime": 90,
+    "requires": ["broad_sword"],
+    "effects": [{ "type": "upgrade_unit", "from": "broad_swordsman", "to": "long_swordsman" }],
+    "source": "1.0"
+  },
+  {
+    "id": "legion",
+    "building": "barracks",
+    "age": "iron",
+    "cost": { "food": 1400, "gold": 600 },
+    "researchTime": 150,
+    "requires": ["long_sword", "fanaticism"],
+    "effects": [{ "type": "upgrade_unit", "from": "long_swordsman", "to": "legion" }],
+    "source": "1.0"
+  },
+  {
+    "id": "war_galley",
+    "building": "dock",
+    "age": "bronze",
+    "cost": { "food": 150, "wood": 75 },
+    "researchTime": 38,
+    "requires": [],
+    "effects": [{ "type": "upgrade_unit", "from": "scout_ship", "to": "war_galley" }],
+    "source": "1.0"
+  },
+  {
+    "id": "trireme",
+    "building": "dock",
+    "age": "iron",
+    "cost": { "food": 250, "wood": 100 },
+    "researchTime": 40,
+    "requires": ["war_galley"],
+    "effects": [{ "type": "upgrade_unit", "from": "war_galley", "to": "trireme" }],
+    "source": "1.0"
+  },
+  {
+    "id": "catapult_trireme",
+    "building": "dock",
+    "age": "iron",
+    "cost": { "food": 300, "wood": 100 },
+    "researchTime": 50,
+    "requires": ["trireme"],
+    "effects": [{ "type": "enable_unit", "unit": "catapult_trireme" }],
+    "source": "1.0"
+  },
+  {
+    "id": "juggernaut",
+    "building": "dock",
+    "age": "iron",
+    "cost": { "food": 2000, "wood": 900 },
+    "researchTime": 150,
+    "requires": ["catapult_trireme", "engineering"],
+    "effects": [{ "type": "upgrade_unit", "from": "catapult_trireme", "to": "juggernaut" }],
+    "source": "1.0"
+  },
+  {
+    "id": "fishing_ship",
+    "building": "dock",
+    "age": "bronze",
+    "cost": { "food": 50, "wood": 100 },
+    "researchTime": 15,
+    "requires": [],
+    "effects": [{ "type": "upgrade_unit", "from": "fishing_boat", "to": "fishing_ship" }],
+    "source": "1.0"
+  },
+  {
+    "id": "merchant_ship",
+    "building": "dock",
+    "age": "bronze",
+    "cost": { "food": 200, "wood": 75 },
+    "researchTime": 30,
+    "requires": [],
+    "effects": [{ "type": "upgrade_unit", "from": "trade_boat", "to": "merchant_ship" }],
+    "source": "1.0"
+  },
+  {
+    "id": "heavy_transport",
+    "building": "dock",
+    "age": "iron",
+    "cost": { "food": 150, "wood": 125 },
+    "researchTime": 38,
+    "requires": [],
+    "effects": [{ "type": "upgrade_unit", "from": "light_transport", "to": "heavy_transport" }],
+    "source": "1.0"
+  },
+  {
+    "id": "improved_bow",
+    "building": "archery_range",
+    "age": "bronze",
+    "cost": { "food": 140, "wood": 80 },
+    "researchTime": 60,
+    "requires": [],
+    "effects": [{ "type": "enable_unit", "unit": "improved_bowman" }],
+    "source": "1.0"
+  },
+  {
+    "id": "composite_bow",
+    "building": "archery_range",
+    "age": "bronze",
+    "cost": { "food": 180, "wood": 100 },
+    "researchTime": 85,
+    "requires": ["improved_bow"],
+    "effects": [{ "type": "upgrade_unit", "from": "improved_bowman", "to": "composite_bowman" }],
+    "source": "1.0"
+  },
+  {
+    "id": "heavy_horse_archer",
+    "building": "archery_range",
+    "age": "iron",
+    "cost": { "food": 1750, "gold": 800 },
+    "researchTime": 150,
+    "requires": ["chain_mail_archers"],
+    "effects": [{ "type": "upgrade_unit", "from": "horse_archer", "to": "heavy_horse_archer" }],
+    "source": "1.0"
+  },
+  {
+    "id": "heavy_cavalry",
+    "building": "stable",
+    "age": "iron",
+    "cost": { "food": 350, "gold": 125 },
+    "researchTime": 90,
+    "requires": [],
+    "effects": [{ "type": "upgrade_unit", "from": "cavalry", "to": "heavy_cavalry" }],
+    "source": "1.0"
+  },
+  {
+    "id": "cataphract",
+    "building": "stable",
+    "age": "iron",
+    "cost": { "food": 2000, "gold": 850 },
+    "researchTime": 150,
+    "requires": ["heavy_cavalry", "metallurgy"],
+    "effects": [{ "type": "upgrade_unit", "from": "heavy_cavalry", "to": "cataphract" }],
+    "source": "1.0"
+  },
+  {
+    "id": "woodworking",
+    "building": "market",
+    "age": "tool",
+    "cost": { "food": 120, "wood": 75 },
+    "researchTime": 60,
+    "requires": [],
+    "effects": [
+      { "type": "modify_carry_capacity", "kinds": ["wood"], "op": "add", "value": 2 },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["ranged"], "buildingClasses": ["tower"] },
+        "stat": "range",
+        "op": "add",
+        "value": 1
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "artisanship",
+    "building": "market",
+    "age": "bronze",
+    "cost": { "food": 170, "wood": 150 },
+    "researchTime": 80,
+    "requires": ["woodworking"],
+    "effects": [
+      { "type": "modify_carry_capacity", "kinds": ["wood"], "op": "add", "value": 2 },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["ranged"], "buildingClasses": ["tower"] },
+        "stat": "range",
+        "op": "add",
+        "value": 1
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "craftsmanship",
+    "building": "market",
+    "age": "iron",
+    "cost": { "food": 240, "wood": 200 },
+    "researchTime": 100,
+    "requires": ["artisanship"],
+    "effects": [
+      { "type": "modify_carry_capacity", "kinds": ["wood"], "op": "add", "value": 2 },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["ranged"], "buildingClasses": ["tower"] },
+        "stat": "range",
+        "op": "add",
+        "value": 1
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "stone_mining",
+    "building": "market",
+    "age": "tool",
+    "cost": { "food": 100, "stone": 50 },
+    "researchTime": 30,
+    "requires": [],
+    "effects": [
+      { "type": "modify_carry_capacity", "kinds": ["stone"], "op": "add", "value": 3 }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "siegecraft",
+    "building": "market",
+    "age": "iron",
+    "cost": { "food": 190, "stone": 100 },
+    "researchTime": 60,
+    "requires": ["stone_mining"],
+    "effects": [
+      { "type": "modify_carry_capacity", "kinds": ["stone"], "op": "add", "value": 3 },
+      { "type": "set_flag", "flag": "villagers_damage_walls" }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "gold_mining",
+    "building": "market",
+    "age": "tool",
+    "cost": { "food": 120, "wood": 100 },
+    "researchTime": 50,
+    "requires": [],
+    "effects": [{ "type": "modify_carry_capacity", "kinds": ["gold"], "op": "add", "value": 3 }],
+    "source": "1.0"
+  },
+  {
+    "id": "coinage",
+    "building": "market",
+    "age": "iron",
+    "cost": { "food": 200, "gold": 120 },
+    "researchTime": 60,
+    "requires": ["gold_mining"],
+    "effects": [
+      { "type": "modify_gather_rate", "kinds": ["gold"], "op": "multiply", "value": 1.25 },
+      { "type": "set_flag", "flag": "no_tribute_tax" }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "domestication",
+    "building": "market",
+    "age": "tool",
+    "cost": { "food": 200, "wood": 50 },
+    "researchTime": 40,
+    "requires": [],
+    "effects": [{ "type": "modify_farm_food", "op": "add", "value": 75 }],
+    "source": "1.0"
+  },
+  {
+    "id": "plow",
+    "building": "market",
+    "age": "bronze",
+    "cost": { "food": 250, "wood": 75 },
+    "researchTime": 75,
+    "requires": ["domestication"],
+    "effects": [{ "type": "modify_farm_food", "op": "add", "value": 75 }],
+    "source": "1.0"
+  },
+  {
+    "id": "irrigation",
+    "building": "market",
+    "age": "iron",
+    "cost": { "food": 300, "wood": 100 },
+    "researchTime": 100,
+    "requires": ["plow"],
+    "effects": [{ "type": "modify_farm_food", "op": "add", "value": 75 }],
+    "source": "1.0"
+  },
+  {
+    "id": "wheel",
+    "building": "market",
+    "age": "bronze",
+    "cost": { "food": 175, "wood": 75 },
+    "researchTime": 75,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "speed",
+        "op": "set",
+        "value": 1.8,
+        "condition": { "lacksTech": "jihad" }
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "speed",
+        "op": "set",
+        "value": 2.1,
+        "condition": { "hasTech": "jihad" }
+      },
+      { "type": "enable_unit", "unit": "chariot" },
+      { "type": "enable_unit", "unit": "chariot_archer" }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "architecture",
+    "building": "government_center",
+    "age": "bronze",
+    "cost": { "food": 175, "gold": 150 },
+    "researchTime": 50,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": {
+          "buildingClasses": [
+            "town_center",
+            "house",
+            "drop_off",
+            "military",
+            "economic",
+            "dock",
+            "farm",
+            "wall",
+            "tower",
+            "wonder",
+            "temple"
+          ]
+        },
+        "stat": "buildTime",
+        "op": "multiply",
+        "value": 0.67
+      },
+      {
+        "type": "modify_stat",
+        "target": {
+          "buildingClasses": [
+            "town_center",
+            "house",
+            "drop_off",
+            "military",
+            "economic",
+            "dock",
+            "farm",
+            "wall",
+            "tower",
+            "wonder",
+            "temple"
+          ]
+        },
+        "stat": "hp",
+        "op": "multiply",
+        "value": 1.2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "nobility",
+    "building": "government_center",
+    "age": "bronze",
+    "cost": { "food": 175, "gold": 120 },
+    "researchTime": 70,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["chariot", "cavalry_line", "horse_archer"] },
+        "stat": "hp",
+        "op": "multiply",
+        "value": 1.15
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "writing",
+    "building": "government_center",
+    "age": "bronze",
+    "cost": { "food": 200, "gold": 75 },
+    "researchTime": 60,
+    "requires": [],
+    "effects": [{ "type": "set_flag", "flag": "shared_exploration" }],
+    "source": "1.0"
+  },
+  {
+    "id": "aristocracy",
+    "building": "government_center",
+    "age": "iron",
+    "cost": { "food": 175, "gold": 150 },
+    "researchTime": 60,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["academy_infantry"] },
+        "stat": "speed",
+        "op": "multiply",
+        "value": 1.25
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "alchemy",
+    "building": "government_center",
+    "age": "iron",
+    "cost": { "food": 250, "gold": 200 },
+    "researchTime": 100,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["ranged"], "buildingClasses": ["tower"] },
+        "stat": "attack",
+        "op": "add",
+        "value": 1
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "ballistics",
+    "building": "government_center",
+    "age": "iron",
+    "cost": { "food": 200, "gold": 50 },
+    "researchTime": 60,
+    "requires": [],
+    "effects": [{ "type": "set_flag", "flag": "ballistics" }],
+    "source": "1.0"
+  },
+  {
+    "id": "engineering",
+    "building": "government_center",
+    "age": "iron",
+    "cost": { "food": 200, "wood": 100 },
+    "researchTime": 70,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["siege", "catapult_ship"] },
+        "stat": "range",
+        "op": "add",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "astrology",
+    "building": "temple",
+    "age": "bronze",
+    "cost": { "gold": 150 },
+    "researchTime": 50,
+    "requires": [],
+    "effects": [
+      { "type": "modify_conversion", "param": "chance", "op": "multiply", "value": 1.3 }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "mysticism",
+    "building": "temple",
+    "age": "bronze",
+    "cost": { "gold": 120 },
+    "researchTime": 50,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["priest"] },
+        "stat": "hp",
+        "op": "multiply",
+        "value": 2
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "polytheism",
+    "building": "temple",
+    "age": "bronze",
+    "cost": { "gold": 120 },
+    "researchTime": 50,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["priest"] },
+        "stat": "speed",
+        "op": "multiply",
+        "value": 1.4
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "fanaticism",
+    "building": "temple",
+    "age": "iron",
+    "cost": { "gold": 150 },
+    "researchTime": 60,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_conversion",
+        "param": "faithRechargeRate",
+        "op": "multiply",
+        "value": 1.5
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "monotheism",
+    "building": "temple",
+    "age": "iron",
+    "cost": { "gold": 350 },
+    "researchTime": 75,
+    "requires": [],
+    "effects": [
+      { "type": "set_flag", "flag": "convert_buildings" },
+      { "type": "set_flag", "flag": "convert_priests" }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "afterlife",
+    "building": "temple",
+    "age": "iron",
+    "cost": { "gold": 275 },
+    "researchTime": 75,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["priest"] },
+        "stat": "range",
+        "op": "add",
+        "value": 3
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "jihad",
+    "building": "temple",
+    "age": "iron",
+    "cost": { "gold": 120 },
+    "researchTime": 60,
+    "requires": [],
+    "effects": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "hp",
+        "op": "set",
+        "value": 65
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "attack",
+        "op": "set",
+        "value": 10
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "speed",
+        "op": "set",
+        "value": 1.42,
+        "condition": { "lacksTech": "wheel" }
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "speed",
+        "op": "set",
+        "value": 2.1,
+        "condition": { "hasTech": "wheel" }
+      },
+      {
+        "type": "modify_carry_capacity",
+        "kinds": ["forage", "farm", "wood", "stone", "gold", "hunt", "shore_fish"],
+        "op": "add",
+        "value": -8
+      }
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "phalanx",
+    "building": "academy",
+    "age": "iron",
+    "cost": { "food": 300, "gold": 100 },
+    "researchTime": 90,
+    "requires": [],
+    "effects": [{ "type": "upgrade_unit", "from": "hoplite", "to": "phalanx" }],
+    "source": "1.0"
+  },
+  {
+    "id": "centurion",
+    "building": "academy",
+    "age": "iron",
+    "cost": { "food": 1800, "gold": 700 },
+    "researchTime": 150,
+    "requires": ["phalanx", "aristocracy"],
+    "effects": [{ "type": "upgrade_unit", "from": "phalanx", "to": "centurion" }],
+    "source": "1.0"
+  },
+  {
+    "id": "catapult",
+    "building": "siege_workshop",
+    "age": "iron",
+    "cost": { "food": 300, "wood": 250 },
+    "researchTime": 100,
+    "requires": [],
+    "effects": [{ "type": "upgrade_unit", "from": "stone_thrower", "to": "catapult" }],
+    "source": "1.0"
+  },
+  {
+    "id": "heavy_catapult",
+    "building": "siege_workshop",
+    "age": "iron",
+    "cost": { "food": 1800, "wood": 900 },
+    "researchTime": 150,
+    "requires": ["catapult", "siegecraft"],
+    "effects": [{ "type": "upgrade_unit", "from": "catapult", "to": "heavy_catapult" }],
+    "source": "1.0"
+  },
+  {
+    "id": "helepolis",
+    "building": "siege_workshop",
+    "age": "iron",
+    "cost": { "food": 1500, "wood": 1000 },
+    "researchTime": 150,
+    "requires": ["craftsmanship"],
+    "effects": [{ "type": "upgrade_unit", "from": "ballista", "to": "helepolis" }],
+    "source": "1.0"
+  }
+]

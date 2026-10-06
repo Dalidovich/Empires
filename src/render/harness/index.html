@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>Renderer harness</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        height: 100%;
+        background: #101010;
+        color: #e8e0c8;
+        font: 13px/1.4 ui-monospace, Consolas, monospace;
+        overflow: hidden;
+      }
+      #viewport {
+        position: absolute;
+        inset: 0;
+      }
+      #viewport canvas {
+        display: block;
+      }
+      #stats,
+      #help {
+        position: absolute;
+        left: 8px;
+        padding: 6px 10px;
+        background: rgba(0, 0, 0, 0.7);
+        border: 1px solid #5a4c30;
+        white-space: pre;
+        pointer-events: none;
+      }
+      #stats {
+        top: 8px;
+      }
+      #help {
+        bottom: 8px;
+      }
+      #minimap {
+        position: absolute;
+        right: 8px;
+        bottom: 8px;
+        padding: 4px;
+        background: rgba(0, 0, 0, 0.7);
+        border: 1px solid #5a4c30;
+      }
+      #minimap canvas {
+        display: block;
+      }
+    </style>
+  </head>
+  <body>
+    <div id="viewport"></div>
+    <div id="stats"></div>
+    <div id="help"></div>
+    <div id="minimap"></div>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>

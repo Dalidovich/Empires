@@ -1,0 +1,11 @@
+node_modules/
+dist/
+coverage/
+*.log
+.vite/
+.DS_Store
+Thumbs.db
+*.tsbuildinfo
+.playwright-mcp/
+tests/acceptance/results/
+public/assets/

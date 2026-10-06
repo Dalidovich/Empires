@@ -1,0 +1,149 @@
+{
+  "sources": [
+    {
+      "id": "berry_bush",
+      "resource": "food",
+      "gatherKind": "forage",
+      "amount": 150,
+      "size": 1,
+      "domain": "land",
+      "blocksMovement": true,
+      "source": "DE"
+    },
+    {
+      "id": "tree",
+      "resource": "wood",
+      "gatherKind": "wood",
+      "amount": 40,
+      "size": 1,
+      "domain": "land",
+      "blocksMovement": true,
+      "source": "DE"
+    },
+    {
+      "id": "gold_mine",
+      "resource": "gold",
+      "gatherKind": "gold",
+      "amount": 400,
+      "size": 1,
+      "domain": "land",
+      "blocksMovement": true,
+      "source": "1.0"
+    },
+    {
+      "id": "stone_mine",
+      "resource": "stone",
+      "gatherKind": "stone",
+      "amount": 250,
+      "size": 1,
+      "domain": "land",
+      "blocksMovement": true,
+      "source": "1.0"
+    },
+    {
+      "id": "shore_fish",
+      "resource": "food",
+      "gatherKind": "shore_fish",
+      "amount": 250,
+      "size": 1,
+      "domain": "water",
+      "blocksMovement": false,
+      "source": "DE"
+    },
+    {
+      "id": "deep_fish",
+      "resource": "food",
+      "gatherKind": "boat_fish",
+      "amount": 250,
+      "size": 1,
+      "domain": "water",
+      "blocksMovement": false,
+      "source": "DE"
+    },
+    {
+      "id": "gazelle_carcass",
+      "resource": "food",
+      "gatherKind": "hunt",
+      "amount": 150,
+      "size": 1,
+      "domain": "land",
+      "blocksMovement": false,
+      "source": "DE"
+    },
+    {
+      "id": "elephant_carcass",
+      "resource": "food",
+      "gatherKind": "hunt",
+      "amount": 300,
+      "size": 1,
+      "domain": "land",
+      "blocksMovement": false,
+      "source": "DE"
+    },
+    {
+      "id": "lion_carcass",
+      "resource": "food",
+      "gatherKind": "hunt",
+      "amount": 100,
+      "size": 1,
+      "domain": "land",
+      "blocksMovement": false,
+      "source": "DE"
+    },
+    {
+      "id": "alligator_carcass",
+      "resource": "food",
+      "gatherKind": "hunt",
+      "amount": 100,
+      "size": 1,
+      "domain": "land",
+      "blocksMovement": false,
+      "source": "DE"
+    }
+  ],
+  "objects": [
+    {
+      "id": "ruin",
+      "kind": "ruin",
+      "size": 2,
+      "speed": 0,
+      "lineOfSight": 3,
+      "captureRadius": 2,
+      "source": "DE"
+    },
+    {
+      "id": "artifact",
+      "kind": "artifact",
+      "size": 1,
+      "speed": 1,
+      "lineOfSight": 3,
+      "captureRadius": 2,
+      "source": "DE"
+    }
+  ],
+  "gatherRates": {
+    "forage": 0.45,
+    "farm": 0.45,
+    "wood": 0.55,
+    "stone": 0.45,
+    "gold": 0.45,
+    "hunt": 0.45,
+    "shore_fish": 0.6,
+    "boat_fish": 0.4,
+    "trade": 1
+  },
+  "carryCapacity": {
+    "forage": 10,
+    "farm": 10,
+    "wood": 10,
+    "stone": 10,
+    "gold": 10,
+    "hunt": 10,
+    "shore_fish": 10,
+    "boat_fish": 15,
+    "trade": 20
+  },
+  "farmFood": 250,
+  "carcassDecayRate": 0.1,
+  "source": "DE"
+}

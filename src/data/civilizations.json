@@ -1,0 +1,502 @@
+[
+  {
+    "id": "assyrian",
+    "architectureSet": "egyptian",
+    "bonuses": [
+      {
+        "type": "modify_stat",
+        "target": {
+          "unitClasses": ["bowman_line", "horse_archer"],
+          "units": ["chariot_archer"]
+        },
+        "stat": "attackInterval",
+        "op": "multiply",
+        "value": 0.75
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "speed",
+        "op": "multiply",
+        "value": 1.3333
+      }
+    ],
+    "disabledTechs": [
+      "bronze_shield",
+      "iron_shield",
+      "chain_mail_archers",
+      "chain_mail_cavalry",
+      "chain_mail_infantry",
+      "catapult_trireme",
+      "juggernaut",
+      "heavy_transport",
+      "improved_bow",
+      "composite_bow",
+      "heavy_horse_archer",
+      "architecture",
+      "nobility",
+      "aristocracy",
+      "alchemy",
+      "engineering",
+      "phalanx",
+      "centurion"
+    ],
+    "disabledUnits": ["elephant_archer", "war_elephant"],
+    "source": "1.0"
+  },
+  {
+    "id": "babylonian",
+    "architectureSet": "mesopotamian",
+    "bonuses": [
+      {
+        "type": "modify_stat",
+        "target": { "buildingClasses": ["wall", "tower"] },
+        "stat": "hp",
+        "op": "multiply",
+        "value": 2
+      },
+      { "type": "modify_conversion", "param": "faithRechargeTime", "op": "add", "value": -12 },
+      { "type": "modify_gather_rate", "kinds": ["stone"], "op": "multiply", "value": 1.3 }
+    ],
+    "disabledTechs": [
+      "metallurgy",
+      "iron_shield",
+      "chain_mail_archers",
+      "chain_mail_cavalry",
+      "chain_mail_infantry",
+      "trireme",
+      "catapult_trireme",
+      "juggernaut",
+      "heavy_transport",
+      "heavy_horse_archer",
+      "heavy_cavalry",
+      "cataphract",
+      "phalanx",
+      "centurion",
+      "helepolis"
+    ],
+    "disabledUnits": ["elephant_archer", "war_elephant", "ballista"],
+    "source": "1.0"
+  },
+  {
+    "id": "choson",
+    "architectureSet": "asian",
+    "bonuses": [
+      {
+        "type": "modify_stat",
+        "target": { "units": ["long_swordsman", "legion"] },
+        "stat": "hp",
+        "op": "add",
+        "value": 80
+      },
+      {
+        "type": "modify_stat",
+        "target": { "buildingClasses": ["tower"] },
+        "stat": "range",
+        "op": "add",
+        "value": 2
+      },
+      {
+        "type": "modify_cost",
+        "target": { "unitClasses": ["priest"] },
+        "op": "multiply",
+        "value": 0.6667
+      }
+    ],
+    "disabledTechs": [
+      "iron_shield",
+      "chain_mail_archers",
+      "chain_mail_cavalry",
+      "chain_mail_infantry",
+      "catapult_trireme",
+      "juggernaut",
+      "heavy_transport",
+      "composite_bow",
+      "heavy_horse_archer",
+      "nobility",
+      "aristocracy",
+      "alchemy",
+      "engineering",
+      "phalanx",
+      "centurion",
+      "catapult",
+      "heavy_catapult"
+    ],
+    "disabledUnits": ["chariot", "chariot_archer", "elephant_archer", "war_elephant"],
+    "source": "1.0"
+  },
+  {
+    "id": "egyptian",
+    "architectureSet": "egyptian",
+    "bonuses": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["priest"] },
+        "stat": "range",
+        "op": "add",
+        "value": 3
+      },
+      { "type": "modify_gather_rate", "kinds": ["gold"], "op": "multiply", "value": 1.2 },
+      {
+        "type": "modify_stat",
+        "target": { "units": ["chariot", "chariot_archer"] },
+        "stat": "hp",
+        "op": "multiply",
+        "value": 1.3333
+      }
+    ],
+    "disabledTechs": [
+      "bronze_shield",
+      "iron_shield",
+      "broad_sword",
+      "long_sword",
+      "legion",
+      "heavy_horse_archer",
+      "heavy_cavalry",
+      "cataphract",
+      "siegecraft",
+      "coinage",
+      "phalanx",
+      "centurion",
+      "catapult",
+      "heavy_catapult",
+      "helepolis"
+    ],
+    "disabledUnits": ["cavalry", "horse_archer", "ballista"],
+    "source": "1.0"
+  },
+  {
+    "id": "greek",
+    "architectureSet": "greek",
+    "bonuses": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["academy_infantry", "war_ship"] },
+        "stat": "speed",
+        "op": "multiply",
+        "value": 1.3
+      }
+    ],
+    "disabledTechs": [
+      "metallurgy",
+      "broad_sword",
+      "long_sword",
+      "legion",
+      "improved_bow",
+      "composite_bow",
+      "heavy_horse_archer",
+      "cataphract",
+      "monotheism",
+      "jihad"
+    ],
+    "disabledUnits": [
+      "chariot",
+      "chariot_archer",
+      "horse_archer",
+      "elephant_archer",
+      "war_elephant"
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "hittite",
+    "architectureSet": "mesopotamian",
+    "bonuses": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["stone_thrower_line"] },
+        "stat": "hp",
+        "op": "multiply",
+        "value": 2
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["archer"] },
+        "stat": "attack",
+        "op": "add",
+        "value": 1
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["war_ship"] },
+        "stat": "range",
+        "op": "add",
+        "value": 4
+      }
+    ],
+    "disabledTechs": [
+      "long_sword",
+      "legion",
+      "trireme",
+      "catapult_trireme",
+      "juggernaut",
+      "fishing_ship",
+      "heavy_transport",
+      "improved_bow",
+      "composite_bow",
+      "heavy_cavalry",
+      "cataphract",
+      "mysticism",
+      "polytheism",
+      "fanaticism",
+      "monotheism",
+      "afterlife",
+      "jihad",
+      "helepolis"
+    ],
+    "disabledUnits": ["ballista"],
+    "source": "1.0"
+  },
+  {
+    "id": "minoan",
+    "architectureSet": "greek",
+    "bonuses": [
+      {
+        "type": "modify_cost",
+        "target": { "unitClasses": ["ship"] },
+        "op": "multiply",
+        "value": 0.6667
+      },
+      {
+        "type": "modify_stat",
+        "target": { "units": ["composite_bowman"] },
+        "stat": "range",
+        "op": "add",
+        "value": 2
+      },
+      { "type": "modify_farm_food", "op": "multiply", "value": 1.25 }
+    ],
+    "disabledTechs": [
+      "fortification",
+      "guard_tower",
+      "ballista_tower",
+      "legion",
+      "heavy_horse_archer",
+      "heavy_cavalry",
+      "cataphract",
+      "astrology",
+      "mysticism",
+      "fanaticism",
+      "monotheism",
+      "afterlife",
+      "jihad"
+    ],
+    "disabledUnits": [
+      "chariot",
+      "chariot_archer",
+      "horse_archer",
+      "elephant_archer",
+      "war_elephant"
+    ],
+    "source": "1.0"
+  },
+  {
+    "id": "persian",
+    "architectureSet": "mesopotamian",
+    "bonuses": [
+      { "type": "modify_gather_rate", "kinds": ["hunt"], "op": "multiply", "value": 1.3 },
+      { "type": "modify_farm_food", "op": "multiply", "value": 0.7 },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["elephant"] },
+        "stat": "speed",
+        "op": "multiply",
+        "value": 1.5
+      },
+      {
+        "type": "modify_stat",
+        "target": { "units": ["trireme"] },
+        "stat": "attackInterval",
+        "op": "multiply",
+        "value": 0.6667
+      }
+    ],
+    "disabledTechs": [
+      "ballista_tower",
+      "artisanship",
+      "craftsmanship",
+      "siegecraft",
+      "coinage",
+      "plow",
+      "irrigation",
+      "wheel",
+      "aristocracy",
+      "ballistics",
+      "phalanx",
+      "centurion",
+      "heavy_catapult",
+      "helepolis"
+    ],
+    "disabledUnits": ["chariot", "chariot_archer", "ballista"],
+    "source": "1.0"
+  },
+  {
+    "id": "phoenician",
+    "architectureSet": "greek",
+    "bonuses": [
+      {
+        "type": "modify_cost",
+        "target": { "unitClasses": ["elephant"] },
+        "op": "multiply",
+        "value": 0.75
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["catapult_ship"] },
+        "stat": "attackInterval",
+        "op": "multiply",
+        "value": 0.6
+      },
+      { "type": "modify_carry_capacity", "kinds": ["wood"], "op": "add", "value": 2 }
+    ],
+    "disabledTechs": [
+      "metallurgy",
+      "chain_mail_archers",
+      "chain_mail_cavalry",
+      "chain_mail_infantry",
+      "heavy_horse_archer",
+      "heavy_cavalry",
+      "cataphract",
+      "siegecraft",
+      "architecture",
+      "catapult",
+      "heavy_catapult",
+      "helepolis"
+    ],
+    "disabledUnits": ["horse_archer", "ballista"],
+    "source": "1.0"
+  },
+  {
+    "id": "shang",
+    "architectureSet": "asian",
+    "bonuses": [
+      {
+        "type": "modify_cost",
+        "target": { "unitClasses": ["villager"] },
+        "op": "multiply",
+        "value": 0.7
+      },
+      {
+        "type": "modify_stat",
+        "target": { "buildingClasses": ["wall"] },
+        "stat": "hp",
+        "op": "multiply",
+        "value": 2
+      }
+    ],
+    "disabledTechs": [
+      "long_sword",
+      "legion",
+      "trireme",
+      "catapult_trireme",
+      "juggernaut",
+      "heavy_transport",
+      "siegecraft",
+      "coinage",
+      "aristocracy",
+      "alchemy",
+      "ballistics",
+      "engineering",
+      "phalanx",
+      "centurion",
+      "heavy_catapult"
+    ],
+    "disabledUnits": ["elephant_archer", "war_elephant"],
+    "source": "1.0"
+  },
+  {
+    "id": "sumerian",
+    "architectureSet": "egyptian",
+    "bonuses": [
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "hp",
+        "op": "add",
+        "value": 15
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["stone_thrower_line"] },
+        "stat": "attackInterval",
+        "op": "multiply",
+        "value": 0.6667
+      },
+      { "type": "modify_farm_food", "op": "multiply", "value": 2 }
+    ],
+    "disabledTechs": [
+      "metallurgy",
+      "iron_shield",
+      "ballista_tower",
+      "legion",
+      "catapult_trireme",
+      "juggernaut",
+      "merchant_ship",
+      "heavy_transport",
+      "improved_bow",
+      "composite_bow",
+      "heavy_cavalry",
+      "cataphract",
+      "craftsmanship",
+      "coinage",
+      "astrology",
+      "fanaticism",
+      "monotheism",
+      "afterlife",
+      "jihad",
+      "helepolis"
+    ],
+    "disabledUnits": ["cavalry", "elephant_archer", "ballista"],
+    "source": "1.0"
+  },
+  {
+    "id": "yamato",
+    "architectureSet": "asian",
+    "bonuses": [
+      {
+        "type": "modify_cost",
+        "target": { "unitClasses": ["horse_archer", "scout", "cavalry_line"] },
+        "op": "multiply",
+        "value": 0.75
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["villager"] },
+        "stat": "speed",
+        "op": "multiply",
+        "value": 1.3333
+      },
+      {
+        "type": "modify_stat",
+        "target": { "unitClasses": ["ship"] },
+        "stat": "hp",
+        "op": "multiply",
+        "value": 1.3333
+      }
+    ],
+    "disabledTechs": [
+      "fortification",
+      "guard_tower",
+      "ballista_tower",
+      "broad_sword",
+      "long_sword",
+      "legion",
+      "astrology",
+      "mysticism",
+      "fanaticism",
+      "monotheism",
+      "jihad",
+      "catapult",
+      "heavy_catapult",
+      "helepolis"
+    ],
+    "disabledUnits": [
+      "chariot",
+      "chariot_archer",
+      "elephant_archer",
+      "war_elephant",
+      "ballista"
+    ],
+    "source": "1.0"
+  }
+]

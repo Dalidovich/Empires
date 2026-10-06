@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="icon" href="data:," />
+    <title>Music harness</title>
+    <style>
+      html,
+      body {
+        margin: 0;
+        min-height: 100%;
+        background: #101010;
+        color: #e8e0c8;
+        font: 14px/1.5 ui-monospace, Consolas, monospace;
+      }
+      main {
+        max-width: 560px;
+        margin: 0 auto;
+        padding: 24px 16px;
+      }
+      fieldset {
+        margin: 0 0 16px;
+        padding: 10px 12px;
+        border: 1px solid #5a4c30;
+      }
+      label {
+        margin-right: 14px;
+        white-space: nowrap;
+      }
+      button,
+      input[type='number'] {
+        font: inherit;
+        color: inherit;
+        background: #2a2418;
+        border: 1px solid #5a4c30;
+        padding: 4px 10px;
+      }
+      input[type='number'] {
+        width: 130px;
+      }
+      input[type='range'] {
+        width: 220px;
+        vertical-align: middle;
+      }
+      #status {
+        white-space: pre;
+      }
+    </style>
+  </head>
+  <body>
+    <main>
+      <fieldset>
+        <legend>Playback</legend>
+        <button id="start" type="button">Start</button>
+        <button id="stop" type="button">Stop</button>
+        <label>Seed <input id="seed" type="number" min="0" step="1" value="1" /></label>
+        <button id="reroll" type="button">Random seed</button>
+      </fieldset>
+      <fieldset id="mood">
+        <legend>Mood</legend>
+        <label><input type="radio" name="mood" value="calm" checked /> calm</label>
+        <label><input type="radio" name="mood" value="tension" /> tension</label>
+        <label><input type="radio" name="mood" value="battle" /> battle</label>
+      </fieldset>
+      <fieldset id="era">
+        <legend>Age</legend>
+        <label><input type="radio" name="era" value="0" checked /> stone</label>
+        <label><input type="radio" name="era" value="1" /> tool</label>
+        <label><input type="radio" name="era" value="2" /> bronze</label>
+        <label><input type="radio" name="era" value="3" /> iron</label>
+      </fieldset>
+      <fieldset>
+        <legend>Volume</legend>
+        <input id="volume" type="range" min="0" max="1" step="0.01" value="0.8" />
+      </fieldset>
+      <div id="status"></div>
+    </main>
+    <script type="module" src="./main.ts"></script>
+  </body>
+</html>
