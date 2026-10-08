@@ -5,6 +5,8 @@ import type { Think } from './context';
 import {
   canAfford,
   centroid,
+  directedVictim,
+  directiveMode,
   dist,
   isExplored,
   isHostile,
@@ -196,7 +198,36 @@ export function enemyTimerRunning(think: Think): boolean {
   );
 }
 
+function directedTarget(think: Think, from: Vec2): AttackTarget | null {
+  const victim = directedVictim(think);
+  if (victim === null) {
+    return null;
+  }
+  const building = nearest(
+    think.enemyBuildings,
+    from,
+    (entry) => entry.owner === victim && !isWall(think, entry),
+  );
+  if (building) {
+    return { position: building.position, entity: building };
+  }
+  const unit = nearest(
+    think.enemyUnits,
+    from,
+    (entry) => entry.owner === victim && think.data.units[entry.type]?.domain === 'land',
+  );
+  if (unit) {
+    return { position: unit.position, entity: unit };
+  }
+  const position = think.view.self.directiveTarget;
+  return position ? { position, entity: null } : null;
+}
+
 export function pickTarget(think: Think, from: Vec2): AttackTarget | null {
+  const directed = directedTarget(think, from);
+  if (directed) {
+    return directed;
+  }
   const timed = timerTarget(think);
   if (timed) {
     return timed;
@@ -476,8 +507,11 @@ function carriedIds(think: Think): Set<number> {
 }
 
 function shouldLaunch(think: Think, army: readonly EntityView[]): boolean {
-  if (army.length === 0) {
+  if (army.length === 0 || directiveMode(think) === 'passive') {
     return false;
+  }
+  if (directedVictim(think) !== null) {
+    return true;
   }
   if (enemyTimerRunning(think) && army.length >= TIMER_LAUNCH_SIZE) {
     return true;
@@ -538,6 +572,11 @@ function commandArmy(think: Think): void {
   const field = fieldArmy(think);
   const carried = carriedIds(think);
   const threat = baseThreat(think);
+  if (army.mode === 'attack' && directiveMode(think) === 'passive') {
+    const recalled = field.filter((soldier) => army.members.includes(soldier.id));
+    standDown(think);
+    attackMove(think, recalled, rallyPoint(think));
+  }
   if (army.mode === 'home' && shouldLaunch(think, field)) {
     think.state.contactTick = think.tick;
     army.mode = 'attack';
@@ -772,6 +811,9 @@ function concede(think: Think): boolean {
   if (isHopeless(think)) {
     think.commands.push({ type: 'resign', playerId: think.me });
     return true;
+  }
+  if (think.view.settings.sandbox === true) {
+    return false;
   }
   const stalemate = isStalemate(think);
   if (!stalemate && think.tick - think.state.contactTick <= think.params.concedeTicks) {

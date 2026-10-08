@@ -371,7 +371,13 @@ export interface ResourcesData {
   source: DataSource;
 }
 
-export type MapTypeId = 'small_islands' | 'large_islands' | 'coastal' | 'inland' | 'highland';
+export type MapTypeId =
+  | 'small_islands'
+  | 'large_islands'
+  | 'coastal'
+  | 'inland'
+  | 'highland'
+  | 'sandbox';
 
 export type MapSizeId = 'tiny' | 'small' | 'medium' | 'large' | 'huge';
 

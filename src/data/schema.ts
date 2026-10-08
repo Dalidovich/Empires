@@ -344,6 +344,7 @@ export const mapTypeIdSchema = z.enum([
   'coastal',
   'inland',
   'highland',
+  'sandbox',
 ]);
 
 export const mapSizeIdSchema = z.enum(['tiny', 'small', 'medium', 'large', 'huge']);

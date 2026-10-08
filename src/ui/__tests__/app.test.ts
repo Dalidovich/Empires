@@ -201,6 +201,69 @@ describe('application shell', () => {
     });
   });
 
+  it('offers the sandbox panel only in sandbox games and sends its commands', async () => {
+    const plain = await startGame(harness);
+    expect(plain.messages[0]).toMatchObject({ type: 'init' });
+    expect([...harness.root.querySelectorAll('button')].map((node) => node.textContent)).not.toContain(
+      en['ui.hud.sandbox'],
+    );
+    harness.app.context.showMainMenu();
+
+    const { root } = harness;
+    buttonByText(root, en['ui.menu.new_game']).click();
+    const toggle = [...root.querySelectorAll('label')]
+      .find((label) => label.textContent?.includes(en['ui.setup.sandbox']))
+      ?.querySelector<HTMLInputElement>('input');
+    expect(toggle).toBeDefined();
+    if (toggle) {
+      toggle.checked = true;
+      toggle.dispatchEvent(new Event('change'));
+    }
+    root.querySelector<HTMLButtonElement>('[data-role="start"]')?.click();
+    await flush();
+    const worker = harness.workers[harness.workers.length - 1];
+    expect(worker.messages[0]).toMatchObject({ type: 'init', settings: { sandbox: true } });
+
+    buttonByText(root, en['ui.hud.sandbox']).click();
+    const panel = root.querySelector('.sandbox');
+    expect(panel?.querySelector('[data-player="0"] [data-mode]')).toBeNull();
+    panel?.querySelector<HTMLButtonElement>('[data-player="1"] [data-mode="off"]')?.click();
+    expect(worker.commands.at(-1)).toEqual({
+      type: 'sandboxAi',
+      playerId: 0,
+      targetPlayerId: 1,
+      mode: 'off',
+      victimId: null,
+    });
+    expect(
+      root.querySelector('.sandbox [data-player="1"] [data-mode="off"]')?.classList.contains('active'),
+    ).toBe(true);
+
+    const target = root.querySelector<HTMLSelectElement>('.sandbox [data-player="1"] select');
+    if (target) {
+      target.value = '0';
+      target.dispatchEvent(new Event('change'));
+    }
+    expect(worker.commands.at(-1)).toEqual({
+      type: 'sandboxAi',
+      playerId: 0,
+      targetPlayerId: 1,
+      mode: 'attack',
+      victimId: 0,
+    });
+    expect(root.querySelector<HTMLSelectElement>('.sandbox [data-player="1"] select')?.value).toBe('0');
+
+    buttonByText(root.querySelector('.sandbox [data-player="0"]') ?? root, '+1000').click();
+    expect(worker.commands.at(-1)).toEqual({
+      type: 'sandboxResources',
+      playerId: 0,
+      targetPlayerId: 0,
+      amount: 1000,
+    });
+    key('Escape');
+    expect(root.querySelector('.sandbox')).toBeNull();
+  });
+
   it('controls speed and pause and opens the in-game windows', async () => {
     const worker = await startGame(harness);
     const { root } = harness;

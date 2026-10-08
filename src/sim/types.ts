@@ -51,6 +51,8 @@ export interface Settings {
   resourceLevel?: string;
   startMode?: StartMode;
   fullTechTree?: boolean;
+  noFog?: boolean;
+  sandbox?: boolean;
 }
 
 export const TERRAIN = {
@@ -138,6 +140,8 @@ export interface Player {
   defeated: boolean;
   resigned: boolean;
   fullTechTree?: boolean;
+  aiDirective?: AiDirective;
+  sandboxGrantTick?: number;
 }
 
 export type EntityKind = 'unit' | 'building' | 'resource' | 'object';
@@ -377,3 +381,18 @@ export type StartMode = 'standard' | 'nomad' | 'post_iron';
 export const START_MODES: readonly StartMode[] = ['standard', 'nomad', 'post_iron'];
 
 export const DEFAULT_RESOURCE_LEVEL = 'default';
+
+export type AiDirectiveMode = 'free' | 'passive' | 'off' | 'attack' | 'frozen';
+
+export const AI_DIRECTIVE_MODES: readonly AiDirectiveMode[] = [
+  'free',
+  'passive',
+  'off',
+  'attack',
+  'frozen',
+];
+
+export interface AiDirective {
+  mode: AiDirectiveMode;
+  victimId: PlayerId | null;
+}

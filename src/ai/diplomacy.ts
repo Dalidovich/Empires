@@ -16,7 +16,7 @@ export function observeTribute(view: PlayerView, state: AiState): void {
   }
   const resources = view.self.resources;
   const last = state.lastResources;
-  if (last !== null) {
+  if (last !== null && view.self.sandboxGrantTick !== view.tick) {
     let received = 0;
     for (const kind of RESOURCE_KINDS) {
       const gain = resources[kind] - last[kind];

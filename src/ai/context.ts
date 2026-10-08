@@ -12,7 +12,7 @@ import { RESOURCE_KINDS } from '../data/types';
 import type { Command } from '../sim/commands';
 import { nextFloat, nextInt } from '../sim/rng';
 import type { EntityView, PlayerView } from '../sim/snapshot';
-import type { PlayerId, Vec2 } from '../sim/types';
+import type { AiDirectiveMode, PlayerId, Vec2 } from '../sim/types';
 import { TERRAIN } from '../sim/types';
 import type { Counts, Knowledge } from './knowledge';
 import { createKnowledge } from './knowledge';
@@ -92,6 +92,18 @@ export function isHostile(think: Think, owner: PlayerId): boolean {
     return false;
   }
   return (think.view.self.diplomacy[owner] ?? 'enemy') === 'enemy';
+}
+
+export function directiveMode(think: Think): AiDirectiveMode {
+  return think.view.players[think.me]?.aiDirective?.mode ?? 'free';
+}
+
+export function directedVictim(think: Think): PlayerId | null {
+  const directive = think.view.players[think.me]?.aiDirective;
+  if (!directive || directive.mode !== 'attack' || directive.victimId === null) {
+    return null;
+  }
+  return think.view.players[directive.victimId]?.defeated === false ? directive.victimId : null;
 }
 
 export function isIdle(entity: EntityView): boolean {

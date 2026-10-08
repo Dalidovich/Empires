@@ -38,6 +38,8 @@ const newGameSetupSchema = z.object({
     resourceLevel: z.string().optional().catch(undefined),
     startMode: z.enum(['standard', 'nomad', 'post_iron']).optional().catch(undefined),
     fullTechTree: z.boolean().optional().catch(undefined),
+    noFog: z.boolean().optional().catch(undefined),
+    sandbox: z.boolean().optional().catch(undefined),
   }),
   seed: z.number().int(),
   players: z.array(

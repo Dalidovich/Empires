@@ -239,8 +239,14 @@ function shareExploration(state: GameState): void {
 }
 
 export function updateVisibility(state: GameState, data: GameData): void {
+  const noFog = state.settings.noFog === true;
   for (const player of state.players) {
-    player.visible.fill(0);
+    if (noFog && player.kind === 'human') {
+      player.visible.fill(1);
+      player.explored.fill(1);
+    } else {
+      player.visible.fill(0);
+    }
   }
   const viewers = viewersOf(state);
   const sights = new Map<string, number>();
