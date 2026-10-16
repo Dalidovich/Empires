@@ -1,5 +1,13 @@
 import type { GameSpeed, ResourceKind } from '../data/types';
-import type { EntityId, PlayerId, Stance, TileCoord, TradeGood, Vec2 } from './types';
+import type {
+  AiDirectiveMode,
+  EntityId,
+  PlayerId,
+  Stance,
+  TileCoord,
+  TradeGood,
+  Vec2,
+} from './types';
 
 export interface MoveCommand {
   type: 'move';
@@ -204,6 +212,21 @@ export interface AttackGroundCommand {
   queued: boolean;
 }
 
+export interface SandboxAiCommand {
+  type: 'sandboxAi';
+  playerId: PlayerId;
+  targetPlayerId: PlayerId;
+  mode: AiDirectiveMode;
+  victimId: PlayerId | null;
+}
+
+export interface SandboxResourcesCommand {
+  type: 'sandboxResources';
+  playerId: PlayerId;
+  targetPlayerId: PlayerId;
+  amount: number;
+}
+
 export type Command =
   | MoveCommand
   | AttackCommand
@@ -231,7 +254,9 @@ export type Command =
   | ResignCommand
   | SetSpeedCommand
   | PauseCommand
-  | AttackGroundCommand;
+  | AttackGroundCommand
+  | SandboxAiCommand
+  | SandboxResourcesCommand;
 
 export type CommandType = Command['type'];
 

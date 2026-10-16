@@ -182,6 +182,16 @@ export function setupScreen(ctx: AppContext): Screen {
       ),
       hint('ui.setup.reveal_map_hint'),
       labeled(
+        t('ui.setup.no_fog'),
+        checkbox(settings.noFog === true, (noFog) => apply(updateSettings(state, { noFog }))),
+      ),
+      hint('ui.setup.no_fog_hint'),
+      labeled(
+        t('ui.setup.sandbox'),
+        checkbox(settings.sandbox === true, (sandbox) => apply(updateSettings(state, { sandbox }))),
+      ),
+      hint('ui.setup.sandbox_hint'),
+      labeled(
         t('ui.setup.lock_teams'),
         checkbox(settings.lockTeams, (lockTeams) => apply(updateSettings(state, { lockTeams }))),
       ),

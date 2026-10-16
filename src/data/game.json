@@ -38,7 +38,10 @@
   },
   "elevation": { "highGroundMultiplier": 1.25, "lowGroundMultiplier": 0.75 },
   "trade": { "minGold": 7, "maxGold": 75, "goodsPerTrip": 20, "maxDistance": 100 },
-  "resourceLevels": { "high": { "food": 1000, "wood": 1000, "stone": 750, "gold": 0 } },
+  "resourceLevels": {
+    "high": { "food": 1000, "wood": 1000, "stone": 750, "gold": 0 },
+    "sandbox": { "food": 50000, "wood": 50000, "stone": 50000, "gold": 50000 }
+  },
   "nomadStart": { "unitCount": 1 },
   "source": "1.0"
 }

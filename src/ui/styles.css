@@ -776,7 +776,8 @@ body {
   pointer-events: none;
 }
 
-.diplomacy {
+.diplomacy,
+.sandbox {
   max-width: 96vw;
 }
 

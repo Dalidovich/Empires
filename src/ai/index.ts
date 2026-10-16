@@ -71,6 +71,10 @@ export function createAi(
   function think(view: PlayerView, tick: number): Command[] {
     watchesEveryTick = !view.settings.lockTeams;
     observeTribute(view, state);
+    const directive = view.players[playerId]?.aiDirective?.mode;
+    if (directive === 'off' || directive === 'frozen') {
+      return [];
+    }
     if (view.outcome !== null || view.paused || view.players[playerId]?.defeated !== false) {
       return [];
     }

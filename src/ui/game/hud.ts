@@ -28,6 +28,7 @@ export interface HudCallbacks {
   onMenu(): void;
   onDiplomacy(): void;
   onGuide(): void;
+  onSandbox(): void;
   onSpeed(): void;
   onNotification(position: Vec2): void;
 }
@@ -91,6 +92,7 @@ export class Hud {
   private buttons: readonly PanelButton[] = [];
   private hoveredSlot: number | null = null;
   private model: HudModel | null = null;
+  private sandbox = false;
 
   constructor(
     private readonly data: GameData,
@@ -130,6 +132,14 @@ export class Hud {
     if (this.model) {
       this.update(this.model);
     }
+  }
+
+  setSandbox(enabled: boolean): void {
+    if (enabled === this.sandbox) {
+      return;
+    }
+    this.sandbox = enabled;
+    this.buildTop();
   }
 
   setBanner(text: string | null): void {
@@ -197,6 +207,7 @@ export class Hud {
         this.speed,
         button(t('ui.hud.diplomacy'), () => this.callbacks.onDiplomacy()),
         button(t('ui.hud.guide'), () => this.callbacks.onGuide()),
+        this.sandbox && button(t('ui.hud.sandbox'), () => this.callbacks.onSandbox()),
         button(t('ui.hud.menu'), () => this.callbacks.onMenu()),
       ]),
     ]);

@@ -31,6 +31,7 @@ import {
 } from './commandBuilder';
 import { ControlGroups } from './controlGroups';
 import { DiplomacyWindow } from './diplomacy';
+import { SandboxWindow } from './sandbox';
 import { GuideWindow } from './guideWindow';
 import type { NotificationTone } from './hud';
 import { Hud } from './hud';
@@ -72,6 +73,7 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
   private pauseMenu: PauseMenu | null = null;
   private diplomacy: DiplomacyWindow | null = null;
   private guide: GuideWindow | null = null;
+  private sandbox: SandboxWindow | null = null;
   private view: PlayerView | null = null;
   private index = new Map<EntityId, EntityView>();
   private selection: EntityId[] = [];
@@ -114,6 +116,7 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
       onMenu: () => this.openPauseMenu(),
       onDiplomacy: () => this.toggleDiplomacy(),
       onGuide: () => this.toggleGuide(),
+      onSandbox: () => this.toggleSandbox(),
       onSpeed: () => this.session?.cycleSpeed(),
       onNotification: (position) => this.renderer?.centerOn(position),
     });
@@ -129,6 +132,7 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
     if (this.view) {
       this.diplomacy?.update(this.view);
       this.guide?.update(this.view);
+      this.sandbox?.update(this.view);
     }
     this.updateBanner();
   }
@@ -155,6 +159,7 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
       this.pauseMenu !== null ||
       this.diplomacy !== null ||
       this.guide !== null ||
+      this.sandbox !== null ||
       this.ctx.overlayRoot.childElementCount > 0
     );
   }
@@ -508,6 +513,8 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
     this.syncPause();
     this.refreshHud();
     this.diplomacy?.update(view);
+    this.sandbox?.update(view);
+    this.hud.setSandbox(view.settings.sandbox === true);
     this.guide?.update(view);
     this.updateBanner();
     if (view.outcome !== null && !this.finished) {
@@ -989,7 +996,9 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
     if (this.ctx.overlayRoot.childElementCount > 0) {
       return false;
     }
-    if (this.guide) {
+    if (this.sandbox) {
+      this.toggleSandbox();
+    } else if (this.guide) {
       this.toggleGuide();
     } else if (this.diplomacy) {
       this.toggleDiplomacy();
@@ -1017,6 +1026,9 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
     }
     if (this.guide) {
       this.toggleGuide();
+    }
+    if (this.sandbox) {
+      this.toggleSandbox();
     }
     this.cancelModes();
     this.pauseMenu = new PauseMenu(this.ctx, this);
@@ -1047,6 +1059,9 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
     if (this.guide) {
       this.toggleGuide();
     }
+    if (this.sandbox) {
+      this.toggleSandbox();
+    }
     this.cancelModes();
     this.diplomacy = new DiplomacyWindow(this.ctx.data, {
       onStance: (targetPlayerId, stance: Stance) =>
@@ -1071,10 +1086,40 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
     if (this.diplomacy) {
       this.toggleDiplomacy();
     }
+    if (this.sandbox) {
+      this.toggleSandbox();
+    }
     this.cancelModes();
     this.guide = new GuideWindow(this.ctx.data, { onClose: () => this.toggleGuide() });
     this.guide.update(this.view);
     this.overlay.appendChild(this.guide.element);
+  }
+
+  private toggleSandbox(): void {
+    if (this.sandbox) {
+      this.sandbox.element.remove();
+      this.sandbox = null;
+      return;
+    }
+    if (!this.view || this.pauseMenu || this.view.settings.sandbox !== true) {
+      return;
+    }
+    if (this.diplomacy) {
+      this.toggleDiplomacy();
+    }
+    if (this.guide) {
+      this.toggleGuide();
+    }
+    this.cancelModes();
+    this.sandbox = new SandboxWindow({
+      onDirective: (targetPlayerId, mode, victimId) =>
+        this.send([{ type: 'sandboxAi', playerId: HUMAN_PLAYER_ID, targetPlayerId, mode, victimId }]),
+      onGrant: (targetPlayerId, amount) =>
+        this.send([{ type: 'sandboxResources', playerId: HUMAN_PLAYER_ID, targetPlayerId, amount }]),
+      onClose: () => this.toggleSandbox(),
+    });
+    this.sandbox.update(this.view);
+    this.overlay.appendChild(this.sandbox.element);
   }
 
   private recallGroup(index: number, now: number): void {

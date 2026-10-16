@@ -7,6 +7,7 @@ import type {
   ResourceAmounts,
 } from '../data/types';
 import type {
+  AiDirective,
   Carry,
   Entity,
   EntityId,
@@ -89,6 +90,8 @@ export interface PlayerSelfView {
   populationLimit: number;
   diplomacy: Record<string, Stance>;
   flags: Partial<Record<PlayerFlag, boolean>>;
+  directiveTarget?: Vec2;
+  sandboxGrantTick?: number;
 }
 
 export interface PlayerPublicView {
@@ -102,6 +105,7 @@ export interface PlayerPublicView {
   defeated: boolean;
   stanceTowardViewer: Stance | null;
   score: number;
+  aiDirective?: AiDirective;
 }
 
 export interface PlayerView {
@@ -282,18 +286,65 @@ function viewProjectiles(state: GameState, player: Player): ProjectileView[] {
 }
 
 function viewPlayers(state: GameState, playerId: PlayerId): PlayerPublicView[] {
-  return state.players.map((other) => ({
-    id: other.id,
-    kind: other.kind,
-    civilization: other.civilization,
-    team: other.team,
-    color: other.color,
-    difficulty: other.difficulty,
-    age: other.age,
-    defeated: other.defeated,
-    stanceTowardViewer: other.id === playerId ? null : (other.diplomacy[playerId] ?? null),
-    score: other.stats.score ?? 0,
-  }));
+  return state.players.map((other) => {
+    const view: PlayerPublicView = {
+      id: other.id,
+      kind: other.kind,
+      civilization: other.civilization,
+      team: other.team,
+      color: other.color,
+      difficulty: other.difficulty,
+      age: other.age,
+      defeated: other.defeated,
+      stanceTowardViewer: other.id === playerId ? null : (other.diplomacy[playerId] ?? null),
+      score: other.stats.score ?? 0,
+    };
+    if (other.aiDirective) {
+      view.aiDirective = other.aiDirective;
+    }
+    return view;
+  });
+}
+
+function directiveTarget(state: GameState, player: Player): Vec2 | null {
+  const directive = player.aiDirective;
+  if (!directive || directive.mode !== 'attack' || directive.victimId === null) {
+    return null;
+  }
+  let unit: Entity | null = null;
+  for (const entity of Object.values(state.entities)) {
+    if (entity.owner !== directive.victimId || entity.carriedBy !== null) {
+      continue;
+    }
+    if (entity.kind === 'building') {
+      return entity.position;
+    }
+    if (entity.kind === 'unit' && unit === null) {
+      unit = entity;
+    }
+  }
+  return unit ? unit.position : null;
+}
+
+function viewSelf(state: GameState, player: Player): PlayerSelfView {
+  const self: PlayerSelfView = {
+    resources: player.resources,
+    age: player.age,
+    researched: player.researched,
+    population: player.population,
+    housing: player.housing,
+    populationLimit: state.settings.populationLimit,
+    diplomacy: player.diplomacy,
+    flags: player.modifiers.flags,
+  };
+  const target = directiveTarget(state, player);
+  if (target) {
+    self.directiveTarget = target;
+  }
+  if (player.sandboxGrantTick !== undefined) {
+    self.sandboxGrantTick = player.sandboxGrantTick;
+  }
+  return self;
 }
 
 export function buildPlayerView(state: GameState, playerId: PlayerId, data: GameData): PlayerView {
@@ -307,16 +358,7 @@ export function buildPlayerView(state: GameState, playerId: PlayerId, data: Game
     settings: state.settings,
     speed: state.settings.speed,
     paused: state.paused,
-    self: {
-      resources: player.resources,
-      age: player.age,
-      researched: player.researched,
-      population: player.population,
-      housing: player.housing,
-      populationLimit: state.settings.populationLimit,
-      diplomacy: player.diplomacy,
-      flags: player.modifiers.flags,
-    },
+    self: viewSelf(state, player),
     players: viewPlayers(state, playerId),
     map: {
       size: state.map.size,

@@ -327,6 +327,67 @@
         "cluster_elephant": 2,
         "waterside_alligator": 1
       }
+    },
+    {
+      "id": "sandbox",
+      "layout": "land",
+      "landRatio": 1,
+      "forestRatio": 0.06,
+      "desertRatio": 0.1,
+      "maxElevation": 0,
+      "elevationRoughness": 0,
+      "startZoneRadius": 14,
+      "startResources": {
+        "berry_bush": 12,
+        "tree": 60,
+        "gold_mine": 12,
+        "stone_mine": 12,
+        "gazelle": 8
+      },
+      "areaResources": {
+        "tree": 4,
+        "berry_bush": 2,
+        "gold_mine": 3,
+        "stone_mine": 3
+      },
+      "areaAnimals": { "gazelle": 2, "elephant": 0.4, "lion": 0, "alligator": 0 },
+      "ruins": 3,
+      "artifacts": 3,
+      "sizeScale": { "large": 1.34, "huge": 1.67 },
+      "params": {
+        "startRingRatio": 0.36,
+        "startEdgeMargin": 14,
+        "startClearRadius": 4.5,
+        "minStartZoneRadius": 9,
+        "startForestClumps": 3,
+        "minBuildableTiles": 40,
+        "coastOffset": 8,
+        "coastNoise": 0.05,
+        "edgeWater": 2,
+        "shoreAccessDistance": 14,
+        "channelWidth": 5,
+        "minIslandRadius": 8,
+        "maxIslandRadius": 14,
+        "extraIslandMinRadius": 5,
+        "extraIslandMaxRadius": 10,
+        "islandRoughness": 0.25,
+        "terrainNoiseScale": 10,
+        "forestNoiseScale": 8,
+        "elevationNoiseScale": 12,
+        "elevationFloor": 0.5,
+        "shallowsRatio": 0.6,
+        "predatorMargin": 4,
+        "objectMargin": 4,
+        "cliffDensity": 0,
+        "cliffRidgeMin": 4,
+        "cliffRidgeMax": 10,
+        "cluster_gold_mine": 6,
+        "cluster_stone_mine": 6,
+        "cluster_berry_bush": 6,
+        "cluster_tree": 2,
+        "cluster_gazelle": 5,
+        "cluster_elephant": 2
+      }
     }
   ]
 }

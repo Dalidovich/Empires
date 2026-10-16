@@ -4,6 +4,7 @@ import { generateMap } from '../mapgen';
 import type { Command } from './commands';
 import { spawnEntity } from './core/entities';
 import { invalidateNavGrid } from './core/navgrid';
+import { handleSandboxCommand } from './core/sandbox';
 import { invalidateSpatialIndex } from './core/spatial';
 import { updateVisibility } from './core/visibility';
 import { createPlayerModifiers } from './effects';
@@ -199,6 +200,14 @@ function handleHostCommand(state: GameState, command: Command): boolean {
   return false;
 }
 
+function dispatchToPipeline(state: GameState, command: Command, ctx: StepContext): void {
+  for (const system of PIPELINE) {
+    if (system.handleCommand?.(state, command, ctx)) {
+      return;
+    }
+  }
+}
+
 function dispatchCommand(state: GameState, command: Command, ctx: StepContext): void {
   if (handleHostCommand(state, command)) {
     return;
@@ -210,11 +219,11 @@ function dispatchCommand(state: GameState, command: Command, ctx: StepContext): 
   if (!player || player.defeated) {
     return;
   }
-  for (const system of PIPELINE) {
-    if (system.handleCommand?.(state, command, ctx)) {
-      return;
-    }
+  const forward = (issued: Command): void => dispatchToPipeline(state, issued, ctx);
+  if (handleSandboxCommand(state, command, ctx, forward)) {
+    return;
   }
+  dispatchToPipeline(state, command, ctx);
 }
 
 export function step(

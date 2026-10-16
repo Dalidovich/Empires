@@ -10,7 +10,14 @@ import { PARAM_KEYS, readParams } from '../params';
 
 const data: GameData = loadGameData();
 
-const MAP_TYPES: MapTypeId[] = ['small_islands', 'large_islands', 'coastal', 'inland', 'highland'];
+const MAP_TYPES: MapTypeId[] = [
+  'small_islands',
+  'large_islands',
+  'coastal',
+  'inland',
+  'highland',
+  'sandbox',
+];
 
 const MAP_SIZES: MapSizeId[] = ['tiny', 'small', 'medium', 'large', 'huge'];
 
@@ -269,7 +276,8 @@ function startProblems(
 
 function contentProblems(generated: GeneratedMap, def: MapTypeDef): string[] {
   const present = new Set(generated.entities.map((spec) => spec.type));
-  const expected = [...Object.keys(def.areaAnimals), 'tree', 'berry_bush', 'gold_mine', 'stone_mine'];
+  const animals = Object.keys(def.areaAnimals).filter((id) => def.areaAnimals[id] > 0);
+  const expected = [...animals, 'tree', 'berry_bush', 'gold_mine', 'stone_mine'];
   if (def.layout !== 'land') expected.push('shore_fish', 'deep_fish');
   const problems = expected.filter((id) => !present.has(id)).map((id) => `no ${id} on the map`);
   if (present.has('ruin') || present.has('artifact')) problems.push('relics in conquest mode');

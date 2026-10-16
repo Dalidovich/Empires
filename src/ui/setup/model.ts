@@ -82,6 +82,8 @@ export function defaultSettings(data: GameData): Settings {
     resourceLevel: DEFAULT_RESOURCE_LEVEL,
     startMode: 'standard',
     fullTechTree: false,
+    noFog: false,
+    sandbox: false,
   };
 }
 
@@ -138,6 +140,8 @@ function sanitizeSettings(saved: Settings, data: GameData): Settings {
         ? saved.startMode
         : fallback.startMode,
     fullTechTree: saved.fullTechTree === true,
+    noFog: saved.noFog === true,
+    sandbox: saved.sandbox === true,
   };
   return { ...settings, ...startChoicePatch(startChoiceOf(settings)) };
 }
