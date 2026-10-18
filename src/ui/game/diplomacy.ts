@@ -2,6 +2,7 @@ import type { GameData, ResourceKind } from '../../data/types';
 import { RESOURCE_KINDS } from '../../data/types';
 import type { PlayerView } from '../../sim/snapshot';
 import type { PlayerId, Stance } from '../../sim/types';
+import type { Child } from '../dom';
 import { button, h, replace } from '../dom';
 import { colorCss } from '../format';
 import { getLanguage, t } from '../i18n';
@@ -13,6 +14,12 @@ export interface DiplomacyCallbacks {
   onStance(playerId: PlayerId, stance: Stance): void;
   onTribute(playerId: PlayerId, resource: ResourceKind, amount: number): void;
   onClose(): void;
+}
+
+function labeledCell(labelKey: string, classes: string | readonly string[], children: readonly Child[] | string): HTMLElement {
+  const cell = h('td', classes, children);
+  cell.dataset.label = t(labelKey);
+  return cell;
 }
 
 export class DiplomacyWindow {
@@ -66,16 +73,16 @@ export class DiplomacyWindow {
         return control;
       });
       return h('tr', player.defeated ? 'defeated' : [], [
-        h('td', 'diplomacy-player', [swatch, playerName(view.players, player.id, view.playerId)]),
-        h('td', [], civilizationName(player.civilization)),
-        h('td', [], player.team === null ? t('ui.setup.no_team') : String(player.team)),
-        h('td', [], player.defeated
+        labeledCell('ui.diplomacy.player', 'diplomacy-player', [swatch, playerName(view.players, player.id, view.playerId)]),
+        labeledCell('ui.diplomacy.civilization', [], civilizationName(player.civilization)),
+        labeledCell('ui.diplomacy.team', [], player.team === null ? t('ui.setup.no_team') : String(player.team)),
+        labeledCell('ui.diplomacy.their_stance', [], player.defeated
           ? t('ui.diplomacy.defeated')
           : player.stanceTowardViewer === null
             ? ''
             : t(`ui.stance.${player.stanceTowardViewer}`)),
-        h('td', 'stance-cell', stances),
-        h('td', 'tribute-cell', tributes),
+        labeledCell('ui.diplomacy.your_stance', 'stance-cell', stances),
+        labeledCell('ui.diplomacy.tribute_head', 'tribute-cell', tributes),
       ]);
     });
     replace(this.panel, [

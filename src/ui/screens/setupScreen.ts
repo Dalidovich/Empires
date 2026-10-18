@@ -199,6 +199,12 @@ export function setupScreen(ctx: AppContext): Screen {
     ]);
   };
 
+  const playerCell = (labelKey: string, control: HTMLElement): HTMLElement => {
+    const cell = h('span', 'player-cell', [control]);
+    cell.dataset.label = t(labelKey);
+    return cell;
+  };
+
   const playerRow = (index: number): HTMLElement => {
     const player = state.players[index];
     const human = index === HUMAN_PLAYER_ID;
@@ -216,29 +222,41 @@ export function setupScreen(ctx: AppContext): Screen {
       player.civilization === RANDOM_CIVILIZATION ? '' : t(`civ.${player.civilization}.bonuses`);
     const row = h('div', 'player-row', [
       h('span', 'player-label', human ? t('ui.setup.you') : t('ui.setup.computer', { n: index + 1 })),
-      select(civilizations, player.civilization, (civilization) => {
-        if (civilization !== RANDOM_CIVILIZATION) {
-          shownCivilization = civilization;
-        }
-        apply(updatePlayer(state, index, { civilization }));
-      }),
-      select(teams, player.team === null ? NO_TEAM : String(player.team), (value) =>
-        apply(updatePlayer(state, index, { team: value === NO_TEAM ? null : Number(value) })),
+      playerCell(
+        'ui.setup.col_civilization',
+        select(civilizations, player.civilization, (civilization) => {
+          if (civilization !== RANDOM_CIVILIZATION) {
+            shownCivilization = civilization;
+          }
+          apply(updatePlayer(state, index, { civilization }));
+        }),
       ),
-      h('span', 'color-cell', [
-        swatch,
-        select(
-          PLAYER_COLORS.map((color, at) => ({ value: String(color), label: t(`ui.color.${at}`) })),
-          String(player.color),
-          (value) => apply(updatePlayer(state, index, { color: Number(value) })),
+      playerCell(
+        'ui.setup.col_team',
+        select(teams, player.team === null ? NO_TEAM : String(player.team), (value) =>
+          apply(updatePlayer(state, index, { team: value === NO_TEAM ? null : Number(value) })),
         ),
-      ]),
+      ),
+      playerCell(
+        'ui.setup.col_color',
+        h('span', 'color-cell', [
+          swatch,
+          select(
+            PLAYER_COLORS.map((color, at) => ({ value: String(color), label: t(`ui.color.${at}`) })),
+            String(player.color),
+            (value) => apply(updatePlayer(state, index, { color: Number(value) })),
+          ),
+        ]),
+      ),
       human
         ? h('span', 'player-difficulty')
-        : select(
-            AI_DIFFICULTIES.map((id) => ({ value: id, label: t(`ui.difficulty.${id}`) })),
-            player.difficulty,
-            (value) => apply(updatePlayer(state, index, { difficulty: value as AiDifficulty })),
+        : playerCell(
+            'ui.setup.col_difficulty',
+            select(
+              AI_DIFFICULTIES.map((id) => ({ value: id, label: t(`ui.difficulty.${id}`) })),
+              player.difficulty,
+              (value) => apply(updatePlayer(state, index, { difficulty: value as AiDifficulty })),
+            ),
           ),
       h('span', 'player-bonuses', bonuses),
     ]);

@@ -33,9 +33,9 @@ import { ControlGroups } from './controlGroups';
 import { DiplomacyWindow } from './diplomacy';
 import { SandboxWindow } from './sandbox';
 import { GuideWindow } from './guideWindow';
-import type { NotificationTone } from './hud';
+import type { NotificationTone, TouchToolButton } from './hud';
 import { Hud } from './hud';
-import type { InputHost } from './input';
+import type { InputHost, TouchPlacement, TouchTool } from './input';
 import { InputController } from './input';
 import type { PauseMenuHost } from './pauseMenu';
 import { PauseMenu } from './pauseMenu';
@@ -119,6 +119,7 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
       onSandbox: () => this.toggleSandbox(),
       onSpeed: () => this.session?.cycleSpeed(),
       onNotification: (position) => this.renderer?.centerOn(position),
+      onTouchTool: (tool) => this.pressTouchTool(tool),
     });
     this.element = this.hud.element;
     this.element.appendChild(this.overlay);
@@ -202,6 +203,38 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
       placeWallCommands(this.commandContext(), this.selected(), building, from, to, shift),
     );
     this.finishPlacement(shift);
+  }
+
+  touchPlacement(): TouchPlacement | null {
+    const building = this.panel.placing;
+    if (building !== null) {
+      return this.ctx.data.buildings[building]?.class.includes('wall') ? 'line' : 'point';
+    }
+    return this.panel.cursor === null ? null : 'point';
+  }
+
+  touchToolChanged(tool: TouchTool | null): void {
+    this.hud.setTouchTool(tool);
+  }
+
+  private pressTouchTool(tool: TouchToolButton): void {
+    if (this.isBlocked()) {
+      return;
+    }
+    if (tool === 'box' || tool === 'order') {
+      this.input?.toggleTouchTool(tool);
+    } else if (tool === 'idle') {
+      this.cycleOwn((entity) => this.isIdleVillager(entity));
+    } else if (this.panel.placing !== null || this.panel.cursor !== null) {
+      this.cancelModes();
+    } else if (this.input?.touchTool) {
+      this.input.toggleTouchTool(this.input.touchTool);
+    } else if (this.panel.page !== 'root') {
+      this.panel = { ...this.panel, page: 'root', pageIndex: 0 };
+      this.refreshHud();
+    } else {
+      this.setSelection([]);
+    }
   }
 
   pointerMove(_point: ScreenPoint): void {
@@ -958,6 +991,9 @@ class GameScreen implements Screen, InputHost, PauseMenuHost {
       case 'place':
         this.panel = { ...this.panel, placing: action.building, cursor: null };
         this.wallStart = null;
+        if (this.input?.usingTouch) {
+          this.input.centerPointer();
+        }
         this.updateGhost();
         break;
       case 'train':

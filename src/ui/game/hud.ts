@@ -18,6 +18,10 @@ const MAX_NOTIFICATIONS = 6;
 
 const MAX_PORTRAITS = 60;
 
+const TOUCH_TOOLTIP_MS = 2500;
+
+const TOUCH_MOUSE_GUARD_MS = 1000;
+
 export type NotificationTone = 'info' | 'warning' | 'danger';
 
 export interface HudCallbacks {
@@ -31,7 +35,12 @@ export interface HudCallbacks {
   onSandbox(): void;
   onSpeed(): void;
   onNotification(position: Vec2): void;
+  onTouchTool(tool: TouchToolButton): void;
 }
+
+export type TouchToolButton = 'box' | 'order' | 'idle' | 'cancel';
+
+const TOUCH_TOOLS: readonly TouchToolButton[] = ['box', 'order', 'idle', 'cancel'];
 
 export interface HudModel {
   view: PlayerView;
@@ -78,6 +87,11 @@ export class Hud {
   private readonly banner = h('div', 'banner');
   private readonly tooltip = h('div', 'tooltip');
   private readonly timers = h('div', 'timers');
+  private readonly touchbar = h('div', 'touchbar');
+  private touchTool: TouchToolButton | null = null;
+  private tooltipTimer: ReturnType<typeof setTimeout> | null = null;
+  private lastTouchAt = Number.NEGATIVE_INFINITY;
+  private touchedName: string | null = null;
   private readonly resourceValues = new Map<string, HTMLElement>();
   private readonly notificationTexts = new Map<Element, () => string>();
   private population = h('span', 'value');
@@ -101,11 +115,12 @@ export class Hud {
     this.banner.hidden = true;
     this.tooltip.hidden = true;
     this.buildTop();
+    this.buildTouchbar();
+    this.viewport.append(this.touchbar, this.notifications);
     this.element.append(
       this.top,
       this.viewport,
       h('div', 'bottom', [this.info, this.queue, this.commands, this.minimap]),
-      this.notifications,
       this.banner,
       this.tooltip,
     );
@@ -126,6 +141,7 @@ export class Hud {
     this.commandKey = '';
     this.timerKey = '';
     this.buildTop();
+    this.buildTouchbar();
     for (const [item, render] of this.notificationTexts) {
       item.textContent = render();
     }
@@ -140,6 +156,13 @@ export class Hud {
     }
     this.sandbox = enabled;
     this.buildTop();
+  }
+
+  setTouchTool(tool: TouchToolButton | null): void {
+    this.touchTool = tool;
+    for (const node of this.touchbar.querySelectorAll<HTMLElement>('[data-tool]')) {
+      node.classList.toggle('active', node.dataset.tool === tool);
+    }
   }
 
   setBanner(text: string | null): void {
@@ -211,6 +234,21 @@ export class Hud {
         button(t('ui.hud.menu'), () => this.callbacks.onMenu()),
       ]),
     ]);
+  }
+
+  private buildTouchbar(): void {
+    replace(
+      this.touchbar,
+      TOUCH_TOOLS.map((tool) => {
+        const node = button(t(`ui.touch.${tool}`), () => this.callbacks.onTouchTool(tool), [
+          'touch-tool',
+          tool === this.touchTool ? 'active' : '',
+        ]);
+        node.dataset.tool = tool;
+        node.title = t(`ui.touch.${tool}.hint`);
+        return node;
+      }),
+    );
   }
 
   private updateTop(view: PlayerView): void {
@@ -484,18 +522,45 @@ export class Hud {
       }
     });
     this.commands.addEventListener('mouseover', (event) => {
+      if (event.timeStamp - this.lastTouchAt < TOUCH_MOUSE_GUARD_MS) {
+        return;
+      }
+      this.touchedName = null;
       this.hoveredSlot = this.slotOf(event.target);
       this.renderTooltip();
     });
-    this.commands.addEventListener('mouseleave', () => {
+    this.commands.addEventListener('mouseleave', (event) => {
+      if (event.timeStamp - this.lastTouchAt < TOUCH_MOUSE_GUARD_MS) {
+        return;
+      }
       this.hoveredSlot = null;
       this.renderTooltip();
     });
+    this.commands.addEventListener(
+      'touchstart',
+      (event) => {
+        this.lastTouchAt = event.timeStamp;
+        const slot = this.slotOf(event.target);
+        this.hoveredSlot = slot;
+        this.touchedName = this.buttons.find((candidate) => candidate.slot === slot)?.nameKey ?? null;
+        this.renderTooltip();
+        if (this.tooltipTimer !== null) {
+          clearTimeout(this.tooltipTimer);
+        }
+        this.tooltipTimer = setTimeout(() => {
+          this.tooltipTimer = null;
+          this.touchedName = null;
+          this.hoveredSlot = null;
+          this.renderTooltip();
+        }, TOUCH_TOOLTIP_MS);
+      },
+      { passive: true },
+    );
   }
 
   private renderTooltip(): void {
     const item = this.buttons.find((candidate) => candidate.slot === this.hoveredSlot);
-    if (!item) {
+    if (!item || (this.touchedName !== null && item.nameKey !== this.touchedName)) {
       this.tooltip.hidden = true;
       return;
     }

@@ -107,7 +107,9 @@ export async function startApp(root: HTMLElement, overrides: AppOverrides = {}):
   };
 
   const updateWarning = (): void => {
-    warning.hidden = window.innerWidth >= MIN_WINDOW_WIDTH && window.innerHeight >= MIN_WINDOW_HEIGHT;
+    const touchDevice = typeof window.matchMedia === 'function' && window.matchMedia('(pointer: coarse)').matches;
+    warning.hidden =
+      touchDevice || (window.innerWidth >= MIN_WINDOW_WIDTH && window.innerHeight >= MIN_WINDOW_HEIGHT);
   };
   const resumeAudio = (): void => {
     void audio.resume();
